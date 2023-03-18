@@ -110,12 +110,12 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-alias h="python3 /home/huyle/Setup_CP/scripts/parse_and_test.py"
+alias h="python3 /home/huyle/scripts/init_solver.py"
 
 bindkey '^ ' autosuggest-accept
 
 ulimit -s unlimited
-export PATH=$PATH:~/Setup_CP/scripts/
+export PATH=$PATH:~/scripts/
 export PATH=$PATH:$HOME/.local/bin
 
 export NVM_DIR="$HOME/.nvm"

@@ -85,6 +85,11 @@ _G.packer_plugins = {
     path = "/home/huyle/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  ["alpha-nvim"] = {
+    loaded = true,
+    path = "/home/huyle/.local/share/nvim/site/pack/packer/start/alpha-nvim",
+    url = "https://github.com/goolord/alpha-nvim"
+  },
   ["bufferline.nvim"] = {
     loaded = true,
     path = "/home/huyle/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
@@ -278,10 +283,14 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: Comment.nvim
-time([[Config for Comment.nvim]], true)
-try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
-time([[Config for Comment.nvim]], false)
+-- Config for: nvim-treesitter
+time([[Config for nvim-treesitter]], true)
+try_loadstring("\27LJ\2\n°\1\0\0\4\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\2B\0\2\1K\0\1\0\14autopairs\1\0\1\venable\2\frainbow\1\0\2\18extended_mode\2\venable\2\14highlight\1\0\0\1\0\1\venable\2\nsetup\28nvim-treesitter.configs\frequire\0", "config", "nvim-treesitter")
+time([[Config for nvim-treesitter]], false)
+-- Config for: impatient.nvim
+time([[Config for impatient.nvim]], true)
+try_loadstring("\27LJ\2\n)\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\14impatient\frequire\0", "config", "impatient.nvim")
+time([[Config for impatient.nvim]], false)
 -- Config for: toggleterm.nvim
 time([[Config for toggleterm.nvim]], true)
 try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15toggleterm\frequire\0", "config", "toggleterm.nvim")
@@ -294,14 +303,10 @@ time([[Config for competitest.nvim]], false)
 time([[Config for nvim-autopairs]], true)
 try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\19nvim-autopairs\frequire\0", "config", "nvim-autopairs")
 time([[Config for nvim-autopairs]], false)
--- Config for: nvim-treesitter
-time([[Config for nvim-treesitter]], true)
-try_loadstring("\27LJ\2\n°\1\0\0\4\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\2B\0\2\1K\0\1\0\14autopairs\1\0\1\venable\2\frainbow\1\0\2\18extended_mode\2\venable\2\14highlight\1\0\0\1\0\1\venable\2\nsetup\28nvim-treesitter.configs\frequire\0", "config", "nvim-treesitter")
-time([[Config for nvim-treesitter]], false)
--- Config for: impatient.nvim
-time([[Config for impatient.nvim]], true)
-try_loadstring("\27LJ\2\n)\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\14impatient\frequire\0", "config", "impatient.nvim")
-time([[Config for impatient.nvim]], false)
+-- Config for: Comment.nvim
+time([[Config for Comment.nvim]], true)
+try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
+time([[Config for Comment.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

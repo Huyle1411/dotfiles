@@ -1,0 +1,4 @@
+source $HOME/.configvim/vim_plugs.vim
+source $HOME/.configvim/settings.vim
+source $HOME/.configvim/map_key.vim
+source $HOME/.configvim/beautiful.vim

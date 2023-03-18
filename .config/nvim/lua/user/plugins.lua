@@ -50,6 +50,7 @@ return packer.startup(function(use)
 			require("nvim-autopairs").setup({})
 		end,
 	})
+	use("goolord/alpha-nvim")
 	-- use 'jiangmiao/auto-pairs'
 	-- use 'luochen1990/rainbow'
 	-- use 'kien/rainbow_parentheses.vim'
@@ -86,7 +87,6 @@ return packer.startup(function(use)
 		end,
 	})
 	use("ahmedkhalf/project.nvim")
-	use("nvim-telescope/telescope.nvim")
 
 	-- Colorschemes
 	use("dracula/vim")
@@ -135,7 +135,6 @@ return packer.startup(function(use)
 	-- Git
 	use("lewis6991/gitsigns.nvim")
 
-	use("LeoRiether/wasp.nvim")
 	use({
 		"xeluxee/competitest.nvim",
 		requires = "MunifTanjim/nui.nvim",
