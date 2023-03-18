@@ -6,7 +6,6 @@ end
 local servers = {
 	"clangd",
 	"cmake",
-	"lua_ls",
 	"pyright",
 	"bashls",
 }
