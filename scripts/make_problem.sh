@@ -43,7 +43,7 @@ elif [ "$LANG" == "java" ]; then
     mv "$filepath/"Template.java "$filepath/$PROBLEM_NAME".java
     echo "created $PROBLEM_NAME.java file"
 elif [ "$LANG" == "python" ]; then
-    cp -r "$TEMPLATE_DIR/template.py" "$filepath/"
+    cp -r "$TEMPLATE_DIR/template.py" "./"
     mv template.py "$PROBLEM_NAME".py
     echo "created $PROBLEM_NAME.py file"
 fi

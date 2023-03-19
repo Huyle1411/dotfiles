@@ -171,10 +171,6 @@ def prepare_build():
 def main():
     arguments = docopt(__doc__)
     global lang
-    print("Enter language: ", end="")
-    lang = input()
-    if lang == "":
-        lang = "cpp"
 
     if arguments["--echo"]:
         while True:
@@ -189,6 +185,10 @@ def main():
                 os.remove(filename)
         print("Done clean all")
     else:
+        print("Enter language: ", end="")
+        lang = input()
+        if lang == "":
+            lang = "cpp"
         dryrun = arguments["--dryrun"]
         make_prob_only = arguments["--make_problem"]
 
