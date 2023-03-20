@@ -4,12 +4,14 @@ if not status_ok then
 end
 
 wasp.setup({
-    template_path = function() return '~/Setup_CP/.template/template.' .. vim.fn.expand("%:e") end,
-    lib = {
-        finder='telescope', -- or 'telescope'
-        path='~/library/',
-    },
-    competitive_companion = { file = 'inp' },
+	template_path = function()
+		return "~/.template/template." .. vim.fn.expand("%:e")
+	end,
+	lib = {
+		finder = "telescope", -- or 'telescope'
+		path = "~/library/",
+	},
+	competitive_companion = { file = "inp" },
 })
 
 wasp.set_default_keymaps()

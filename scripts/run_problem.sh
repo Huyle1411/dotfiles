@@ -22,35 +22,37 @@ if [ -d "$target" ]; then
   cd $target
 fi
 build_dir="build"
-LANG="cpp"
+PROGRAM_LANG="cpp"
 
 # detect language by file extension
-if [[ -f "${target}.java" ]]; then
-  echo "detect java lang"
-  LANG="java"
-elif [[ -f "${target}.cpp" ]]; then
-  echo "detect cpp lang"
-  LANG="cpp"
-elif [[ -f "${target}.py" ]]; then
-  echo "detect python lang"
-  LANG="python"
-else
-  echo "cannot detect lang. Exit"
-  exit 0
-fi
-
-# if [ $# -eq 1 ]
-#   then
-#     LANG="cpp" #default
-#   else
-#     LANG=$2
+# if [[ -f "${target}.java" ]]; then
+#   echo "detect java lang"
+#   LANG="java"
+# elif [[ -f "${target}.cpp" ]]; then
+#   echo "detect cpp lang"
+#   LANG="cpp"
+# elif [[ -f "${target}.py" ]]; then
+#   echo "detect python lang"
+#   LANG="python"
+# else
+#   echo "cannot detect lang. Exit"
+#   exit 0
 # fi
 
-if [ "$LANG" == "cpp" ]; then
+if [ $# -eq 1 ]
+  then
+    PROGRAM_LANG="cpp" #default
+  else
+    PROGRAM_LANG=$2
+fi
+
+echo "$PROGRAM_LANG"
+
+if [ "$PROGRAM_LANG" == "cpp" ]; then
   execute_file="build/${target}"
-elif [ "$LANG" == "java" ]; then
+elif [ "$PROGRAM_LANG" == "java" ]; then
   execute_file="${target}/${target}"
-elif [ "$LANG" == "python" ]; then
+elif [ "$PROGRAM_LANG" == "python" ]; then
   execute_file="${target}.py"
 fi
 
@@ -74,11 +76,11 @@ do
   expected_file="${filename}.out"
   
   # run
-  if [ "$LANG" == "cpp" ]; then
+  if [ "$PROGRAM_LANG" == "cpp" ]; then
     ./$execute_file < $input_file > $output_file
-  elif [ "$LANG" == "java" ]; then
+  elif [ "$PROGRAM_LANG" == "java" ]; then
     java -cp $build_dir $execute_file < $input_file > $output_file
-  elif [ "$LANG" == "python" ]; then
+  elif [ "$PROGRAM_LANG" == "python" ]; then
     pypy3 -W ignore $execute_file < $input_file > $output_file
   fi
 
