@@ -52,6 +52,8 @@ vim.cmd([[
 vim.o.background = "dark"
 -- vim.g.tokyonight_style = "storm"
 vim.cmd("colorscheme tokyonight")
+vim.api.nvim_set_hl(0, "Normal", { bg = "none"})
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
 -- vim.cmd([[
 -- let g:airline_theme='dracula'
 -- ]])
