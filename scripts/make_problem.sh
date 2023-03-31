@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+
+NC='\033[0m' # No Color
 TEMPLATE_DIR='/home/huyle/.template'
 
 filepath=$1
@@ -15,10 +19,10 @@ if [ "$LANG" == "cpp" ]; then
     # Copy files
     cp -r "$TEMPLATE_DIR/template.cpp" "./"
     cp template.cpp "$PROBLEM_NAME".cpp
-    echo "created $PROBLEM_NAME.cpp file"
+    printf "${GREEN}created $PROBLEM_NAME.cpp file\n${NC}"
 
     if [ -f "CMakeLists.txt" ]; then
-        echo "Already created CMakeLists.txt"
+        printf "${RED}Already created CMakeLists.txt\n${NC}"
     else
         cp "$TEMPLATE_DIR/debug.h" "."
         cp "$TEMPLATE_DIR/CMakeLists.txt" "."
