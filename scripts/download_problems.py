@@ -2,10 +2,16 @@
 """Download and setup problems using oj_api
 Usage:
     download_problems.py --contest <url>
+    download_problems.py --problem <url>
+    download_problems.py --make_problem <name>...
+    download_problems.py --clean
 
 Options:
     -h, --help          Show this screen.
     -ct, --contest      get contest data by url
+    -p, --problem       get problem data by url
+    -m, --make_problem  Make problem folder only
+    -c, --clean         clean problem data except source code
 
 """
 
@@ -17,6 +23,7 @@ import subprocess
 import sys
 import re
 import os
+import shutil
 
 lang = "cpp"  # default language
 
@@ -83,20 +90,18 @@ def make_prob(data, name=None):
         save_samples(data, prob_dir, name)
 
 
-def get_problem(url_problem: str):
-    print(url_problem)
+def get_problem(url_problem):
+    print(f"link problem: {url_problem}")
     f = open("problem.json", "w")
     problem_data = None
     subprocess.call(["oj-api", "get-problem", "--compatibility", url_problem], stdout=f)
     problem_data = json.load(open("problem.json", "r"))
-    if problem_data is None:
-        print("Got no data")
-    else:
+    if problem_data is not None and problem_data["status"] == "ok":
         print(f"Got data {json.dumps(problem_data)}")
         make_prob(problem_data["result"])
 
 
-def get_contest(url_contest: str):
+def get_contest(url_contest):
     if validators.url(url_contest):
         contest_data = None
         f = open("links.json", "w")
@@ -130,15 +135,37 @@ def main():
     arguments = docopt(__doc__)
     global lang
 
+    if arguments["--clean"]:
+        for filename in os.listdir("./"):
+            if (
+                filename.endswith(".in")
+                or filename.endswith(".out")
+                or filename.endswith(".res")
+            ):
+                os.remove(filename)
+        if os.path.isdir("build"):
+            shutil.rmtree("build")
+        print("Done clean all")
+        return
+    if arguments["--make_problem"]:
+        if names := arguments["<name>"]:
+            for name in names:
+                make_prob(None, name)
+        return
+
     print("Enter language: ", end="")
     lang = input()
     if lang == "":
         lang = "cpp"
 
     if url := arguments["<url>"]:
-        get_contest(url)
-        if lang == "cpp":
-            prepare_build()
+        if arguments["--contest"]:
+            get_contest(url)
+        else:
+            get_problem(url)
+
+    if lang == "cpp":
+        prepare_build()
 
 
 if __name__ == "__main__":
