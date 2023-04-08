@@ -111,6 +111,7 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 alias h="python3 /home/huyle/scripts/init_solver.py"
+alias dp="python3 /home/huyle/scripts/download_problems.py"
 
 bindkey '^ ' autosuggest-accept
 

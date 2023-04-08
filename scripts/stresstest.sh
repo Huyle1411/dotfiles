@@ -68,10 +68,10 @@ then
 
     echo "Wrong Answer"
 else
+    rm input1.txt
     echo "Accepted"
 fi
 
-rm input1.txt
 rm generator
 rm original
 rm brute

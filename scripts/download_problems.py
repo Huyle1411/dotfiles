@@ -8,8 +8,8 @@ Usage:
 
 Options:
     -h, --help          Show this screen.
-    -ct, --contest      get contest data by url
-    -p, --problem       get problem data by url
+    -a, --contest       Get all problems data in contest by url
+    -o, --problem       Get one problem data by url
     -m, --make_problem  Make problem folder only
     -c, --clean         clean problem data except source code
 
@@ -74,7 +74,7 @@ def make_prob(data, name=None):
     if os.path.exists(file_name):
         print(f"Already created problem {name}...")
     else:
-        print(f"Creating problem {name}...")
+        # print(f"Creating problem {name}...")
 
         MAKE_PROB = Path(sys.path[0]) / "make_problem.sh"
         try:
@@ -147,18 +147,17 @@ def main():
             shutil.rmtree("build")
         print("Done clean all")
         return
-    if arguments["--make_problem"]:
-        if names := arguments["<name>"]:
-            for name in names:
-                make_prob(None, name)
-        return
 
     print("Enter language: ", end="")
     lang = input()
     if lang == "":
         lang = "cpp"
 
-    if url := arguments["<url>"]:
+    if arguments["--make_problem"]:
+        if names := arguments["<name>"]:
+            for name in names:
+                make_prob(None, name)
+    elif url := arguments["<url>"]:
         if arguments["--contest"]:
             get_contest(url)
         else:
