@@ -13,8 +13,8 @@ vim.cmd([[
 autocmd filetype cpp nnoremap <F9> :w <bar> :TermExec cmd="cd build && time make %:r && cd .." go_back=1 <CR>
 autocmd filetype cpp inoremap <F9> <ESC> :w <bar> :TermExec cmd="cd build && time make %:r && cd .." <CR>
 autocmd filetype cpp nnoremap <F8> :TermExec cmd="./build/%:r" go_back=0 <CR>
-autocmd filetype cpp nnoremap <F10> :w <bar> :TermExec cmd="run_problem.sh %:r cpp" go_back=0 <CR>
+autocmd filetype cpp nnoremap <F10> :w <bar> :TermExec cmd="run_problem.sh %:r cpp" go_back=1 <CR>
 autocmd filetype python nnoremap <F9> :w <bar> :TermExec cmd="pypy3 -W ignore %:r.py < input" go_back=0 <CR>
 autocmd filetype python inoremap <F9> <ESC> :w <bar> :TermExec cmd="pypy3 -W ignore %:r.py < input" go_back=0 <CR>
-autocmd filetype python nnoremap <F10> :w <bar> :TermExec cmd="run_problem.sh %:r python" go_back=0 <CR>
+autocmd filetype python nnoremap <F10> :w <bar> :TermExec cmd="run_problem.sh %:r python" go_back=1 <CR>
 ]])
