@@ -1,3 +1,3 @@
 return {
-  { "ggandor/leap.nvim", enabled = false },
+  -- { "ggandor/leap.nvim", enabled = false },
 }

@@ -52,14 +52,10 @@ return {
       ensure_installed = {
         "bash",
         "c",
-        "json",
         "lua",
-        "luap",
         "markdown",
         "markdown_inline",
         "python",
-        "query",
-        "regex",
         "vim",
       },
       incremental_selection = {
