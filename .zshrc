@@ -112,7 +112,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias h="python3 /home/huyle/scripts/init_solver.py"
 alias dp="python3 /home/huyle/scripts/download_problems.py"
-alias nvim="env TERM=wezterm nvim"
+# alias nvim="env TERM=wezterm nvim"
 
 bindkey '^ ' autosuggest-accept
 
@@ -123,9 +123,6 @@ export PATH=$PATH:$HOME/.local/bin
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export TERM="xterm-256color"
-[[ -n $TMUX ]] && export TERM="screen-256color"
 
 lg()
 {
