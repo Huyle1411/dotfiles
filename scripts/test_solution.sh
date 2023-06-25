@@ -8,6 +8,8 @@ orange=$(tput setaf 178)
 bold=$(tput bold)
 reset=$(tput sgr0)
 
+TIMEOUT_STATUS=124
+
 dist=$((($(tput cols) - 2) / 3))
 CUSTOMTAB=''
 for ((i = 1; i <= $dist; i++)); do
@@ -65,42 +67,52 @@ if [ $count == 0 ]; then
 	exit 0
 fi
 
+execute_solution() {
+	if [ "$PROGRAM_LANG" == "cpp" ]; then
+		timeout 5 ./$execute_file <$input_file >$output_file
+	elif [ "$PROGRAM_LANG" == "java" ]; then
+		timeout 5java -cp $build_dir $execute_file <$input_file >$output_file
+	elif [ "$PROGRAM_LANG" == "python" ]; then
+		timeout 5pypy3 -W ignore $execute_file <$input_file >$output_file
+	fi
+}
+
 for input_file in "${target}_"*.in; do
 	filename=$(basename -- "$input_file")
 	filename="${filename%.*}"
 	output_file="${filename}.res"
 	expected_file="${filename}.out"
 
-	# run
-	if [ "$PROGRAM_LANG" == "cpp" ]; then
-		./$execute_file <$input_file >$output_file
-	elif [ "$PROGRAM_LANG" == "java" ]; then
-		java -cp $build_dir $execute_file <$input_file >$output_file
-	elif [ "$PROGRAM_LANG" == "python" ]; then
-		pypy3 -W ignore $execute_file <$input_file >$output_file
-	fi
+	execute_solution
+	result=$?
 
-	# compare output
-	# if diff -w -B -F --label --side-by-side $expected_file $output_file > dont_show_on_terminal.txt; then
-	if diff -Z -B <(grep -vE '^\s*$' $expected_file) <(grep -vE '^\s*$' $output_file) >dont_show_on_terminal.txt; then
-		echo "Test case $test_case: ${bold}${green}Accepted${reset}"
-		right_answer=$((right_answer + 1))
-		rm $output_file
+	if [ "$result" -eq "$TIMEOUT_STATUS" ]; then
+		echo "Test case $test_case: ${bold}${orange}Time Limit Exceeded${reset}"
+	elif [ "$result" -eq 0 ]; then
+		# compare output
+		# if diff -w -B -F --label --side-by-side $expected_file $output_file > dont_show_on_terminal.txt; then
+		if diff -Z -B <(grep -vE '^\s*$' $expected_file) <(grep -vE '^\s*$' $output_file) >dont_show_on_terminal.txt; then
+			echo "Test case $test_case: ${bold}${green}Accepted${reset}"
+			right_answer=$((right_answer + 1))
+			rm $output_file
+		else
+			echo "Test case $test_case: ${bold}${red}Wrong Answer${reset}"
+			echo "${blue}Input: ${reset}"
+			cat $input_file
+			echo ""
+
+			echo "${blue}Output: ${reset}${CUSTOMTAB}${blue}Expected: ${reset}"
+			colordiff -y -Z -B <(grep -vE '^\s*$' $output_file) <(grep -vE '^\s*$' $expected_file)
+		fi
+		# cat $output_file
+		# echo ""
+		#
+		#   echo "${blue}Expected: ${reset}"
+		# cat $expected_file
+		# echo ""
 	else
-		echo "Test case $test_case: ${bold}${red}Wrong Answer${reset}"
-		echo "${blue}Input: ${reset}"
-		cat $input_file
-		echo ""
-
-		echo "${blue}Output: ${reset}${CUSTOMTAB}${blue}Expected: ${reset}"
-		colordiff -y -Z -B <(grep -vE '^\s*$' $output_file) <(grep -vE '^\s*$' $expected_file)
+		echo "${red}Error returned: $result${reset}"
 	fi
-	# cat $output_file
-	# echo ""
-	#
-	#   echo "${blue}Expected: ${reset}"
-	# cat $expected_file
-	# echo ""
 	test_case=$((test_case + 1))
 done
 
