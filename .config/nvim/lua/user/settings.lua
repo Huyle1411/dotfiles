@@ -51,9 +51,9 @@ vim.cmd([[
 -- colorscheme
 vim.o.background = "dark"
 -- vim.g.tokyonight_style = "storm"
-vim.cmd("colorscheme tokyonight")
-vim.api.nvim_set_hl(0, "Normal", { bg = "none"})
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
+vim.cmd("colorscheme onedark")
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 -- vim.cmd([[
 -- let g:airline_theme='dracula'
 -- ]])
@@ -61,19 +61,19 @@ vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
 -- treesitter
 local status_ok, configs = pcall(require, "nvim-treesitter.configs")
 if not status_ok then
-	return
+  return
 end
 
 configs.setup({
-	ensure_installed = { "cpp", "python", "lua" }, -- one of "all" or a list of languages
-	ignore_install = { "" }, -- List of parsers to ignore installing
-	highlight = {
-		enable = true, -- false will disable the whole extension
-	},
-	autopairs = {
-		enable = true,
-	},
-	indent = { enable = true, disable = { "python", "css" } },
+  ensure_installed = { "cpp", "python", "lua" }, -- one of "all" or a list of languages
+  ignore_install = { "" }, -- List of parsers to ignore installing
+  highlight = {
+    enable = true, -- false will disable the whole extension
+  },
+  autopairs = {
+    enable = true,
+  },
+  indent = { enable = true, disable = { "python", "css" } },
 })
 
 -- python3 env

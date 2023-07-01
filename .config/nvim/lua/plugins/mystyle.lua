@@ -1,14 +1,39 @@
 return {
   {
-    "folke/tokyonight.nvim",
+    -- "navarasu/onedark.nvim",
+    -- "olimorris/onedarkpro.nvim",
+    "navarasu/onedark.nvim",
     opts = {
-      transparent = true,
-      styles = {
-        sidebars = "transparent",
-        floats = "transparent",
+      style = "warm",
+      transparent = false,
+      priority = 1000, -- Ensure it loads first
+      term_colors = true,
+      diagnostics = {
+        darker = true, -- darker colors for diagnostic
+        undercurl = true, -- use undercurl instead of underline for diagnostics
+        background = true, -- use background color for virtual text
       },
     },
   },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "onedark",
+    },
+  },
+  {
+    "michaeljsmith/vim-indent-object",
+  },
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   opts = {
+  --     transparent = true,
+  --     styles = {
+  --       sidebars = "transparent",
+  --       floats = "transparent",
+  --     },
+  --   },
+  -- },
   {
     "goolord/alpha-nvim",
     opts = function()
