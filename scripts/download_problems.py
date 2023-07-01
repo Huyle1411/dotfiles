@@ -123,10 +123,8 @@ def get_contest(url_contest):
 
 def prepare_build():
     if (Path(".") / "build").exists():
-        print("Exists folder build")
-    else:
-        os.mkdir("build")
-
+        shutil.rmtree("build")
+    os.mkdir("build")
     os.chdir("build")
     os.system("cmake .. && make template")
 
