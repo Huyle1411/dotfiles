@@ -1,24 +1,9 @@
 return {
-  {
-    -- "navarasu/onedark.nvim",
-    -- "olimorris/onedarkpro.nvim",
-    "navarasu/onedark.nvim",
-    opts = {
-      style = "warm",
-      transparent = false,
-      priority = 1000, -- Ensure it loads first
-      term_colors = true,
-      diagnostics = {
-        darker = true, -- darker colors for diagnostic
-        undercurl = true, -- use undercurl instead of underline for diagnostics
-        background = true, -- use background color for virtual text
-      },
-    },
-  },
+  { "ellisonleao/gruvbox.nvim", priority = 1000 },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "onedark",
+      colorscheme = "gruvbox",
     },
   },
   {

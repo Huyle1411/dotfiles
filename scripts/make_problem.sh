@@ -17,9 +17,9 @@ fi
 
 if [ "$LANG" == "cpp" ]; then
 	# Copy files
-	cp -r "$TEMPLATE_DIR/template.cpp" "./"
-	cp template.cpp "$PROBLEM_NAME".cpp
-	printf "${GREEN}created $PROBLEM_NAME.cpp file\n${NC}"
+	cp -r "$TEMPLATE_DIR/template.cc" "./"
+	cp template.cc "$PROBLEM_NAME".cc
+	printf "${GREEN}created $PROBLEM_NAME.cc file\n${NC}"
 
 	if [ -f "CMakeLists.txt" ]; then
 		printf "Append to exists CMakeLists.txt\n${NC}"
@@ -30,7 +30,7 @@ if [ "$LANG" == "cpp" ]; then
 
 	CMAKE_FILE="CMakeLists".txt
 	echo "" >>$CMAKE_FILE
-	echo "add_executable($PROBLEM_NAME $PROBLEM_NAME.cpp)" >>$CMAKE_FILE
+	echo "add_executable($PROBLEM_NAME $PROBLEM_NAME.cc)" >>$CMAKE_FILE
 	echo "target_precompile_headers($PROBLEM_NAME REUSE_FROM template)" >>$CMAKE_FILE
 
 	# target_include_directories($PROBLEM_NAME PRIVATE ./)" >> $CMAKE_FILE

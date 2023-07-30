@@ -14,7 +14,7 @@ autocmd filetype cpp nnoremap <F9> :w <bar> :TermExec cmd="cd %:p:h/build && tim
 autocmd filetype cpp inoremap <F9> <ESC> :w <bar> :TermExec cmd="cd %:p:h/build && time make %:r" go_back=1 <CR>
 autocmd filetype cpp nnoremap <F8> :TermExec cmd="cd %:p:h/build && run_solution.sh %:r" go_back=0 <CR> <CR>
 autocmd filetype cpp nnoremap <F10> :w <bar> :TermExec cmd="cd %:p:h && test_solution.sh %:r cpp" go_back=1 <CR>
-autocmd filetype python nnoremap <F9> :w <bar> :TermExec cmd="cd %:p:h && pypy3 -W ignore %:r.py < input" go_back=0 <CR>
-autocmd filetype python inoremap <F9> <ESC> :w <bar> :TermExec cmd="cd %:p:h && pypy3 -W ignore %:r.py < input" go_back=0 <CR>
+autocmd filetype python nnoremap <F9> :w <bar> :TermExec cmd="cd %:p:h && python3 -W ignore %:r.py < input" go_back=0 <CR>
+autocmd filetype python inoremap <F9> <ESC> :w <bar> :TermExec cmd="cd %:p:h && python3 -W ignore %:r.py < input" go_back=0 <CR>
 autocmd filetype python nnoremap <F10> :w <bar> :TermExec cmd="cd %:p:h && test_solution.sh %:r python" go_back=1 <CR>
 ]])
