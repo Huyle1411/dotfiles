@@ -32,6 +32,16 @@ import os
 
 lang = "Cpp"  # default language
 
+defaultPorts = (
+    1327,  # cpbooster
+    4244,  # Hightail
+    6174,  # Mind Sport
+    10042,  # acmX
+    10043,  # Caide and AI Virtual Assistant
+    10045,  # CP Editor
+    27121,  # Competitive Programming Helper
+)
+
 
 def listen_once(*, second=None):
     json_data = None
@@ -42,7 +52,7 @@ def listen_once(*, second=None):
             json_data = json.load(self.rfile)
 
     with http.server.HTTPServer(
-        ("127.0.0.1", 1327), CompetitiveCompanionHandler
+        ("127.0.0.1", defaultPorts[0]), CompetitiveCompanionHandler
     ) as server:
         server.second = second
         server.handle_request()
