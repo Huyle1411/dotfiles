@@ -71,9 +71,9 @@ execute_solution() {
 	if [ "$PROGRAM_LANG" == "cpp" ]; then
 		timeout 5 ./$execute_file <$input_file >$output_file
 	elif [ "$PROGRAM_LANG" == "java" ]; then
-		timeout 5java -cp $build_dir $execute_file <$input_file >$output_file
+		timeout 5 java -cp $build_dir $execute_file <$input_file >$output_file
 	elif [ "$PROGRAM_LANG" == "python" ]; then
-		timeout 5pypy3 -W ignore $execute_file <$input_file >$output_file
+		timeout 5 pypy3 -W ignore $execute_file <$input_file >$output_file
 	fi
 }
 
