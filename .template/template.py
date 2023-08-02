@@ -1,11 +1,8 @@
 import sys
-import os
-import io
+import math
+import itertools
+import functools
+import collections
+input = sys.stdin.readline
 
-input = io.BytesIO(os.read(0, os.fstat(0).st_size)).readline
-
-T = int(input())
-ans = []
-for _ in range(T):
-
-sys.stdout.write("\n".join(map(str, ans)))
+for _ in range(int(input())):
