@@ -142,7 +142,10 @@ def make_prob(data, name=None):
     prob_dir = Path(".")
 
     file_name = name + "." + lang
-    if os.path.exists(file_name):
+    alter_name = name + "."
+    if lang == "cpp":
+        alter_name += "cc"
+    if os.path.exists(file_name) or os.path.exists(alter_name):
         print(f"Already created problem {name}...")
     else:
         # print(f"Creating problem {name}...")
