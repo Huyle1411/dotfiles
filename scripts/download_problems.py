@@ -141,23 +141,24 @@ def make_prob(data, name=None):
     # Using current dir, set sample name by problem in save_samples
     prob_dir = Path(".")
 
-    file_name = name + "." + lang
-    alter_name = name + "."
-    if lang == "cpp":
-        alter_name += "cc"
-    if os.path.exists(file_name) or os.path.exists(alter_name):
-        print(f"Already created problem {name}...")
-    else:
-        # print(f"Creating problem {name}...")
+    # file_name = name + "." + lang
+    # alter_name = name + "."
+    # if lang == "cpp":
+    #     alter_name += "cc"
+    # if os.path.exists(file_name) or os.path.exists(alter_name):
+    #     print(f"Already created problem {name}...")
+    # else:
+    # print(f"Creating problem {name}...")
 
-        MAKE_PROB = Path(sys.path[0]) / "make_problem.sh"
-        try:
-            subprocess.check_call(
-                [MAKE_PROB, name, lang], stdout=sys.stdout, stderr=sys.stderr
-            )
-        except subprocess.CalledProcessError as e:
-            print(f"Got error {e}")
-            return
+    print("Running make_problem.sh ...")
+    MAKE_PROB = Path(sys.path[0]) / "make_problem.sh"
+    try:
+        subprocess.check_call(
+            [MAKE_PROB, name, lang], stdout=sys.stdout, stderr=sys.stderr
+        )
+    except subprocess.CalledProcessError as e:
+        print(f"Got error {e}")
+        return
 
     if data is not None:
         print("Saving samples...")

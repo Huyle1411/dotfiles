@@ -16,10 +16,14 @@ fi
 # mkdir -p "$filepath"
 
 if [ "$LANG" == "cpp" ]; then
-	# Copy files
-	cp -r "$TEMPLATE_DIR/template.cc" "./"
-	cp template.cc "$PROBLEM_NAME".cc
-	printf "${GREEN}created $PROBLEM_NAME.cc file\n${NC}"
+	if test -e "$PROBLEM_NAME.cc"; then
+		echo "File already created"
+	else
+		# Copy files
+		cp -r "$TEMPLATE_DIR/template.cc" "./"
+		cp template.cc "$PROBLEM_NAME".cc
+		printf "${GREEN}created $PROBLEM_NAME.cc file\n${NC}"
+	fi
 
 	if [ -f "CMakeLists.txt" ]; then
 		printf "Append to exists CMakeLists.txt\n${NC}"
@@ -29,9 +33,18 @@ if [ "$LANG" == "cpp" ]; then
 	fi
 
 	CMAKE_FILE="CMakeLists".txt
-	echo "" >>$CMAKE_FILE
-	echo "add_executable($PROBLEM_NAME $PROBLEM_NAME.cc)" >>$CMAKE_FILE
-	echo "target_precompile_headers($PROBLEM_NAME REUSE_FROM template)" >>$CMAKE_FILE
+
+	if grep -q "$PROBLEM_NAME $PROBLEM_NAME.cc" $CMAKE_FILE; then
+		echo "Target already included"
+	else
+		TARGETCOMMAND="\n"
+		TARGETCOMMAND+="add_executable($PROBLEM_NAME $PROBLEM_NAME.cc)\n"
+		TARGETCOMMAND+="target_precompile_headers($PROBLEM_NAME REUSE_FROM template)"
+		echo -e $TARGETCOMMAND >>$CMAKE_FILE
+	fi
+	# echo "" >>$CMAKE_FILE
+	# echo "add_executable($PROBLEM_NAME $PROBLEM_NAME.cc)" >>$CMAKE_FILE
+	# echo "target_precompile_headers($PROBLEM_NAME REUSE_FROM template)" >>$CMAKE_FILE
 
 	# target_include_directories($PROBLEM_NAME PRIVATE ./)" >> $CMAKE_FILE
 	# if [ "$PROBLEM_NAME" == "$ROOT_NAME" ]; then
