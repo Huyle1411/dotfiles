@@ -49,7 +49,7 @@ fi
 # echo "$PROGRAM_LANG"
 
 if [ "$PROGRAM_LANG" == "cpp" ]; then
-	execute_file="build/${target}"
+	execute_file="${target}"
 elif [ "$PROGRAM_LANG" == "java" ]; then
 	execute_file="${target}/${target}"
 elif [ "$PROGRAM_LANG" == "python" ]; then
@@ -91,25 +91,26 @@ for input_file in "${target}_"*.in; do
 	elif [ "$result" -eq 0 ]; then
 		# compare output
 		# if diff -w -B -F --label --side-by-side $expected_file $output_file > dont_show_on_terminal.txt; then
-		if diff -Z -B <(grep -vE '^\s*$' $expected_file) <(grep -vE '^\s*$' $output_file) >dont_show_on_terminal.txt; then
-			echo "Test case $test_case: ${bold}${green}Accepted${reset}"
-			right_answer=$((right_answer + 1))
-			rm $output_file
-		else
+		diff_output=$(diff -Z -B <(grep -vE '^\s*$' $output_file) <(grep -vE '^\s*$' $expected_file))
+		if [ -n "$diff_output" ]; then
 			echo "Test case $test_case: ${bold}${red}Wrong Answer${reset}"
 			echo "${blue}Input: ${reset}"
 			cat $input_file
-			echo ""
 
-			echo "${blue}Output: ${reset}${CUSTOMTAB}${blue}Expected: ${reset}"
-			colordiff -y -Z -B <(grep -vE '^\s*$' $output_file) <(grep -vE '^\s*$' $expected_file)
+			echo "${blue}Output: ${reset}"
+			cat $output_file
+
+			echo "${blue}Expected: ${reset}"
+			cat $expected_file
+
+			echo "-----------"
+			echo $diff_output
+		else
+			echo "Test case $test_case: ${bold}${green}Accepted${reset}"
+			right_answer=$((right_answer + 1))
+			rm $output_file
+			# colordiff -y -Z -B <(grep -vE '^\s*$' $output_file) <(grep -vE '^\s*$' $expected_file)
 		fi
-		# cat $output_file
-		# echo ""
-		#
-		#   echo "${blue}Expected: ${reset}"
-		# cat $expected_file
-		# echo ""
 	else
 		echo "${red}Error returned: $result${reset}"
 	fi
@@ -119,5 +120,5 @@ done
 echo "Testing complete!"
 echo "${bold}${green}${right_answer}${reset} test cases passed"
 
-rm dont_show_on_terminal.txt
+# rm dont_show_on_terminal.txt
 cd ..
