@@ -7,25 +7,20 @@ bold=$(tput bold)
 reset=$(tput sgr0)
 
 type="cpp"
-target=$1
-extension="$2"
-opt="$3"
+extension=$1
+opt="$2"
+target="$3"
 
 if [ -z "$opt" ]; then
 	opt=0
 fi
 
-echo $opt
-
-bash ~/scripts/build_script_cpp.sh "$target" "$opt"
+bash ~/scripts/build.sh "$target" "$opt"
 
 if [ "$extension" = "cpp" ]; then
 	echo "${green}Input:${reset}"
-	# ./${target} >output
-	time ./$target >output
-	MEMORY_KB=$(ps -p $$ -o rss=)
-	MEMORY_MB=$(awk "BEGIN {printf \"%.2f\", $MEMORY_KB / 1024.0}")
-	echo "Memory: $MEMORY_MB MB"
+	./${target} >output
+
 	echo "${green}Output:${reset}"
 elif [ "$extension" = "python" ]; then
 	echo $target

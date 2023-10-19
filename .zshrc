@@ -113,6 +113,8 @@ source $ZSH/oh-my-zsh.sh
 alias h="python3 /home/huyle/scripts/init_solver.py"
 alias dp="python3 /home/huyle/scripts/download_problems.py"
 alias nvim="/home/huyle/nvim-linux64/bin/nvim"
+alias dbrun="/home/huyle/scripts/run_solution.sh cpp 2"
+alias run="/home/huyle/scripts/run_solution.sh cpp 0"
 # alias nvim="env TERM=wezterm nvim"
 
 bindkey '^ ' autosuggest-accept
