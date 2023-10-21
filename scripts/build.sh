@@ -15,9 +15,6 @@ if [ -z "$extension" ]; then
 fi
 filename="${filename%.*}"
 
-echo $filename
-echo $extension
-
 COMMAND="g++"
 CXX_LANG_OPTION="-std=c++2a"
 CXX_FLAGS="-O0 -Wall -Wextra -Wno-unused-result -Wno-char-subscripts -Wshadow -Wfloat-equal -Wconversion -Wformat-signedness -Wvla -Wduplicated-cond -Wlogical-op -Wredundant-decls "
