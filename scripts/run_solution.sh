@@ -17,6 +17,10 @@ fi
 
 bash ~/scripts/build.sh "$target" "$opt"
 
+if [ $? -eq 1 ]; then
+	exit 1
+fi
+
 if [ "$extension" = "cpp" ]; then
 	echo "${green}Input:${reset}"
 	./${target} >output

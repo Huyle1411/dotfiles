@@ -13,46 +13,34 @@ if [ -z "$LANG" ]; then
 	LANG="cpp" #default
 fi
 
-# mkdir -p "$filepath"
+mkdir -p "$filepath"
 
 if [ "$LANG" == "cpp" ]; then
-	if test -e "$PROBLEM_NAME.cc"; then
+	if test -e "$filepath/$PROBLEM_NAME.cc"; then
 		echo "File already created"
 	else
 		# Copy files
-		cp -r "$TEMPLATE_DIR/template.cc" "./"
-		cp template.cc "$PROBLEM_NAME".cc
+		cp -r "$TEMPLATE_DIR/template.cc" "$filepath/"
+		cp "$filepath/template.cc" "$filepath/$PROBLEM_NAME".cc
 		printf "${GREEN}created $PROBLEM_NAME.cc file\n${NC}"
 	fi
 
-	if [ -f "CMakeLists.txt" ]; then
-		printf "Append to exists CMakeLists.txt\n${NC}"
-	else
-		cp "$TEMPLATE_DIR/debug.h" "."
-		cp "$TEMPLATE_DIR/CMakeLists.txt" "."
-	fi
-
-	CMAKE_FILE="CMakeLists".txt
-
-	if grep -q "$PROBLEM_NAME $PROBLEM_NAME.cc" $CMAKE_FILE; then
-		echo "Target already included"
-	else
-		TARGETCOMMAND="\n"
-		TARGETCOMMAND+="add_executable($PROBLEM_NAME $PROBLEM_NAME.cc)\n"
-		TARGETCOMMAND+="target_precompile_headers($PROBLEM_NAME REUSE_FROM template)"
-		echo -e $TARGETCOMMAND >>$CMAKE_FILE
-	fi
-	# echo "" >>$CMAKE_FILE
-	# echo "add_executable($PROBLEM_NAME $PROBLEM_NAME.cc)" >>$CMAKE_FILE
-	# echo "target_precompile_headers($PROBLEM_NAME REUSE_FROM template)" >>$CMAKE_FILE
-
-	# target_include_directories($PROBLEM_NAME PRIVATE ./)" >> $CMAKE_FILE
-	# if [ "$PROBLEM_NAME" == "$ROOT_NAME" ]; then
-	#     echo "target_precompile_headers($PROBLEM_NAME
-	#     PUBLIC
-	#       /usr/include/x86_64-linux-gnu/c++/11/bits/stdc++.h
-	#     )" >> $CMAKE_FILE
+	# if [ -f "CMakeLists.txt" ]; then
+	# 	printf "Append to exists CMakeLists.txt\n${NC}"
 	# else
+	# 	cp "$TEMPLATE_DIR/debug.h" "."
+	# 	cp "$TEMPLATE_DIR/CMakeLists.txt" "."
+	# fi
+
+	# CMAKE_FILE="CMakeLists".txt
+	#
+	# if grep -q "$PROBLEM_NAME $PROBLEM_NAME.cc" $CMAKE_FILE; then
+	# 	echo "Target already included"
+	# else
+	# 	TARGETCOMMAND="\n"
+	# 	TARGETCOMMAND+="add_executable($PROBLEM_NAME $PROBLEM_NAME.cc)\n"
+	# 	TARGETCOMMAND+="target_precompile_headers($PROBLEM_NAME REUSE_FROM template)"
+	# 	echo -e $TARGETCOMMAND >>$CMAKE_FILE
 	# fi
 elif [ "$LANG" == "java" ]; then
 	cp -r "$TEMPLATE_DIR/Template.java" "$filepath/"

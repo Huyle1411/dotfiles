@@ -27,7 +27,16 @@ return {
     opts = {
       highlight = { enable = true },
       indent = { enable = true, disable = { "python" } },
-      context_commentstring = { enable = true, enable_autocmd = false },
+      dependencies = {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+      },
+      context_commentstring = {
+        enable = true,
+        enable_autocmd = false,
+        config = {
+          cpp = "// %s",
+        },
+      },
       ensure_installed = {
         "bash",
         "c",
@@ -79,5 +88,13 @@ return {
         enable = true,
       },
     },
+  },
+  -- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
+  {
+    "numToStr/Comment.nvim",
+    opts = {
+      -- add any options here
+    },
+    lazy = false,
   },
 }

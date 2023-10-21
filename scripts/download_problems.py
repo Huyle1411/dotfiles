@@ -139,7 +139,7 @@ def make_prob(data, name=None):
             return
 
     # Using current dir, set sample name by problem in save_samples
-    prob_dir = Path(".")
+    prob_dir = Path("./"+name)
 
     # file_name = name + "." + lang
     # alter_name = name + "."
@@ -242,8 +242,8 @@ def main():
         for data in datas:
             make_prob(data)
 
-    if lang == "cpp":
-        prepare_build()
+    # if lang == "cpp":
+    #     prepare_build()
 
 
 if __name__ == "__main__":

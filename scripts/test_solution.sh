@@ -10,15 +10,10 @@ reset=$(tput sgr0)
 
 TIMEOUT_STATUS=124
 
-dist=$((($(tput cols) - 2) / 3))
-CUSTOMTAB=''
-for ((i = 1; i <= $dist; i++)); do
-	CUSTOMTAB+=' '
-done
-
 # target/ {target.cpp sample.in sample.out}
 # get target folder
-target=$1
+PROGRAM_LANG=$1
+target=$2
 if [ -d "$target" ]; then
 	cd $target
 fi
@@ -40,13 +35,11 @@ PROGRAM_LANG="cpp"
 #   exit 0
 # fi
 
-if [ $# -eq 1 ]; then
-	PROGRAM_LANG="cpp" #default
-else
-	PROGRAM_LANG=$2
+# Compile first, default with DEBUG mode
+bash ~/scripts/build.sh "$target" 2
+if [ $? -eq 1 ]; then
+	exit 1
 fi
-
-# echo "$PROGRAM_LANG"
 
 if [ "$PROGRAM_LANG" == "cpp" ]; then
 	execute_file="${target}"
@@ -119,6 +112,3 @@ done
 
 echo "Testing complete!"
 echo "${bold}${green}${right_answer}${reset} test cases passed"
-
-# rm dont_show_on_terminal.txt
-cd ..
