@@ -22,41 +22,41 @@ return {
   --     },
   --   },
   -- },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      highlight = { enable = true },
-      indent = { enable = true, disable = { "python" } },
-      dependencies = {
-        "JoosepAlviste/nvim-ts-context-commentstring",
-      },
-      context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-        config = {
-          cpp = "// %s",
-        },
-      },
-      ensure_installed = {
-        "bash",
-        "c",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "vim",
-      },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
-          scope_incremental = "<nop>",
-          node_decremental = "<bs>",
-        },
-      },
-    },
-  },
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   opts = {
+  --     highlight = { enable = true },
+  --     indent = { enable = true, disable = { "python" } },
+  --     dependencies = {
+  --       "JoosepAlviste/nvim-ts-context-commentstring",
+  --     },
+  --     context_commentstring = {
+  --       enable = true,
+  --       enable_autocmd = false,
+  --       config = {
+  --         cpp = "// %s",
+  --       },
+  --     },
+  -- ensure_installed = {
+  --   "bash",
+  --   "c",
+  --   "lua",
+  --   "markdown",
+  --   "markdown_inline",
+  --   "python",
+  --   "vim",
+  -- },
+  -- incremental_selection = {
+  --   enable = true,
+  --   keymaps = {
+  --     init_selection = "<C-space>",
+  --     node_incremental = "<C-space>",
+  --     scope_incremental = "<nop>",
+  --     node_decremental = "<bs>",
+  --   },
+  -- },
+  -- },
+  -- },
   {
     "neovim/nvim-lspconfig",
     opts = {
@@ -94,6 +94,19 @@ return {
     "numToStr/Comment.nvim",
     opts = {
       -- add any options here
+      -- ---Add a space b/w comment and the line
+      padding = true,
+      ---Whether the cursor should stay at its position
+      sticky = true,
+      ---Lines to be ignored while (un)comment
+      ignore = nil,
+      ---LHS of toggle mappings in NORMAL mode
+      toggler = {
+        ---Line-comment toggle keymap
+        line = "gcc",
+        ---Block-comment toggle keymap
+        block = "gbc",
+      },
     },
     lazy = false,
   },

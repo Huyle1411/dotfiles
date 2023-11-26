@@ -18,7 +18,6 @@ if [ -d "$target" ]; then
 	cd $target
 fi
 build_dir="build"
-PROGRAM_LANG="cpp"
 
 # detect language by file extension
 # if [[ -f "${target}.java" ]]; then
@@ -36,9 +35,11 @@ PROGRAM_LANG="cpp"
 # fi
 
 # Compile first, default with DEBUG mode
-bash ~/scripts/build.sh "$target" 2
-if [ $? -eq 1 ]; then
-	exit 1
+if [ "$PROGRAM_LANG" == "cpp" ]; then
+	bash ~/scripts/build.sh "$target" 2
+	if [ $? -eq 1 ]; then
+		exit 1
+	fi
 fi
 
 if [ "$PROGRAM_LANG" == "cpp" ]; then

@@ -114,10 +114,12 @@ alias h="python3 /home/huyle/scripts/init_solver.py"
 alias dp="python3 /home/huyle/scripts/download_problems.py"
 alias nvim="/home/huyle/nvim-linux64/bin/nvim"
 # alias gdbrun='build.sh "$1" 2 && gdb "$1"'
+build() {
+    build.sh "$1" 2
+}
 gdbrun() {
   build.sh "$1" 2 && gdb "$1"
 }
-
 alias dbrun="/home/huyle/scripts/run_solution.sh cpp 2"
 alias run="/home/huyle/scripts/run_solution.sh cpp 0"
 alias runsp="/home/huyle/scripts/test_solution.sh cpp"

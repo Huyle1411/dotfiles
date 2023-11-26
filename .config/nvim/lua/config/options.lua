@@ -62,22 +62,22 @@ vim.o.background = "light"
 -- ]])
 
 -- treesitter
-local status_ok, configs = pcall(require, "nvim-treesitter.configs")
-if not status_ok then
-  return
-end
-
-configs.setup({
-  ensure_installed = { "cpp", "python", "lua" }, -- one of "all" or a list of languages
-  ignore_install = { "" }, -- List of parsers to ignore installing
-  highlight = {
-    enable = true, -- false will disable the whole extension
-  },
-  autopairs = {
-    enable = true,
-  },
-  indent = { enable = true, disable = { "python", "css" } },
-})
+-- local status_ok, configs = pcall(require, "nvim-treesitter.configs")
+-- if not status_ok then
+--   return
+-- end
+--
+-- configs.setup({
+--   ensure_installed = { "cpp", "python", "lua" }, -- one of "all" or a list of languages
+--   ignore_install = { "" }, -- List of parsers to ignore installing
+--   highlight = {
+--     enable = true, -- false will disable the whole extension
+--   },
+--   autopairs = {
+--     enable = true,
+--   },
+--   indent = { enable = true, disable = { "python", "css" } },
+-- })
 
 -- python3 env
 vim.cmd([[
@@ -91,18 +91,18 @@ vim.cmd([[
   let g:airline_powerline_fonts = 1
 ]])
 
-vim.cmd([[
-  highlight Cursor guifg=white guibg=green
-  highlight iCursor guifg=white guibg=green
-  set guicursor=n-v:block-Cursor
-  set guicursor+=i-c:ver10-iCursor
-  set guicursor+=n-v-c-i:blinkon0
-]])
+-- vim.cmd([[
+--   highlight Cursor guifg=white guibg=green
+--   highlight iCursor guifg=white guibg=green
+--   set guicursor=n-v:block-Cursor
+--   set guicursor+=i-c:ver10-iCursor
+--   set guicursor+=n-v-c-i:blinkon0
+-- ]])
 vim.g.vimtex_view_method = "zathura"
 -- custome icon youcompleteme
-vim.cmd([[
-let g:ycm_error_symbol = ''
-let g:ycm_warning_symbol = ''
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-]])
+-- vim.cmd([[
+-- let g:ycm_error_symbol = ''
+-- let g:ycm_warning_symbol = ''
+-- let g:ycm_autoclose_preview_window_after_completion = 1
+-- let g:ycm_autoclose_preview_window_after_insertion = 1
+-- ]])
