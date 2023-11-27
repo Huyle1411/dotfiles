@@ -6,7 +6,6 @@ orange=$(tput setaf 178)
 bold=$(tput bold)
 reset=$(tput sgr0)
 
-type="cpp"
 extension=$1
 opt="$2"
 target="$3"
@@ -15,10 +14,12 @@ if [ -z "$opt" ]; then
 	opt=0
 fi
 
-bash ~/scripts/build.sh "$target" "$opt"
+if [[ $extension == "cpp" ]]; then
+	bash ~/scripts/build.sh "$target" "$opt"
 
-if [ $? -eq 1 ]; then
-	exit 1
+	if [ $? -eq 1 ]; then
+		exit 1
+	fi
 fi
 
 if [ "$extension" = "cpp" ]; then
