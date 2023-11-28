@@ -148,6 +148,8 @@ runsp() {
     filename="${filename%.*}"
     if [[ $extension == "cc" ]]; then
         extension="cpp"
+    elif [[ $extension == "cpp" ]]; then
+        extension="cpp"
     elif [[ $extension == "py" ]]; then
         extension="python"
     fi

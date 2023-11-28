@@ -139,7 +139,7 @@ def make_prob(data, name=None):
             return
 
     # Using current dir, set sample name by problem in save_samples
-    prob_dir = Path("./"+name)
+    prob_dir = Path("./")
 
     # file_name = name + "." + lang
     # alter_name = name + "."

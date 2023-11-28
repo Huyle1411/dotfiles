@@ -14,8 +14,8 @@ if [ -z "$opt" ]; then
 	opt=0
 fi
 
-if [[ $extension == "cpp" ]]; then
-	bash ~/scripts/build.sh "$target" "$opt"
+if [ "$extension" = "cpp" ]; then
+	bash ~/scripts/build.sh "$target".cc "$opt"
 
 	if [ $? -eq 1 ]; then
 		exit 1

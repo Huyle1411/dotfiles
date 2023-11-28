@@ -13,15 +13,15 @@ if [ -z "$LANG" ]; then
 	LANG="cpp" #default
 fi
 
-mkdir -p "$filepath"
+# mkdir -p "$filepath"
 
 if [ "$LANG" == "cpp" ]; then
-	if test -e "$filepath/$PROBLEM_NAME.cc"; then
+	if test -e "$PROBLEM_NAME.cc"; then
 		echo "File already created"
 	else
 		# Copy files
-		cp -r "$TEMPLATE_DIR/template.cc" "$filepath/"
-		cp "$filepath/template.cc" "$filepath/$PROBLEM_NAME".cc
+		cp "$TEMPLATE_DIR/template.cc" "./$PROBLEM_NAME".cc
+		# cp "$filepath/template.cc" "$filepath/$PROBLEM_NAME".cc
 		printf "${GREEN}created $PROBLEM_NAME.cc file\n${NC}"
 	fi
 
