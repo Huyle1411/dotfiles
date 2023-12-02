@@ -14,10 +14,12 @@ TIMEOUT_STATUS=124
 # get target folder
 PROGRAM_LANG=$1
 target=$2
-if [ -d "$target" ]; then
-	cd $target
-fi
-build_dir="build"
+target=$(basename -- "$target")
+target="${target%.*}"
+# if [ -d "$target" ]; then
+# 	cd $target
+# fi
+# build_dir="build"
 
 # detect language by file extension
 # if [[ -f "${target}.java" ]]; then
