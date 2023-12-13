@@ -106,3 +106,11 @@ vim.g.vimtex_view_method = "zathura"
 -- let g:ycm_autoclose_preview_window_after_completion = 1
 -- let g:ycm_autoclose_preview_window_after_insertion = 1
 -- ]])
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function(args)
+    require("conform").format({ bufnr = args.buf })
+  end,
+})
+
