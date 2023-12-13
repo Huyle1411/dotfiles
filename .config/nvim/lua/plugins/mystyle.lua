@@ -110,4 +110,11 @@ return {
     },
     lazy = false,
   },
+  {
+    "stevearc/conform.nvim",
+    opts = { formatters_by_ft = {
+      python = { "black" },
+    } },
+  },
+
 }
