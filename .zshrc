@@ -119,7 +119,10 @@ build() {
 }
 
 gdbrun() {
-  build.sh "$1" 2 && gdb "$1"
+    filename=$(basename -- "$1")
+    extension="${filename##*.}"
+    filename="${filename%.*}"
+    build.sh "$filename" 2 && gdb "$filename"
 }
 
 run_opt() {
