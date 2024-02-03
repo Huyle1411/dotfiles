@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # to color the output text in different colours
 green=$(tput setaf 71)
 red=$(tput setaf 1)
@@ -6,16 +8,25 @@ orange=$(tput setaf 178)
 bold=$(tput bold)
 reset=$(tput sgr0)
 
-extension=$1
+target=$1
+filename=$(basename -- "$target")
+extension="${filename##*.}"
+filename="${filename%.*}"
+
 opt="$2"
-target="$3"
+
+if [[ "$extension" == "cc" || "$extension" == "cpp" ]]; then
+	extension="cpp"
+elif [[ $extension == "py" ]]; then
+	extension="python"
+fi
 
 if [ -z "$opt" ]; then
 	opt=0
 fi
 
 if [ "$extension" = "cpp" ]; then
-	bash ~/scripts/build.sh "$target".cc "$opt"
+	bash ~/scripts/build.sh "$target" "$opt"
 
 	if [ $? -eq 1 ]; then
 		exit 1
@@ -24,7 +35,7 @@ fi
 
 if [ "$extension" = "cpp" ]; then
 	echo "${green}Input:${reset}"
-	./${target} >output
+	./${filename} >output
 
 	echo "${green}Output:${reset}"
 elif [ "$extension" = "python" ]; then

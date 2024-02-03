@@ -10,45 +10,36 @@ reset=$(tput sgr0)
 
 TIMEOUT_STATUS=124
 
+fullname=$1
+target=$(basename -- "$1")
+extension="${target##*.}"
+target="${target%.*}"
+if [[ $extension == "cc" || $extension == "cpp" ]]; then
+	extension="cpp"
+elif [[ $extension == "py" ]]; then
+	extension="python"
+fi
+
 # target/ {target.cpp sample.in sample.out}
 # get target folder
-PROGRAM_LANG=$1
-target=$2
-target=$(basename -- "$target")
-target="${target%.*}"
 # if [ -d "$target" ]; then
 # 	cd $target
 # fi
 # build_dir="build"
 
-# detect language by file extension
-# if [[ -f "${target}.java" ]]; then
-#   echo "detect java lang"
-#   LANG="java"
-# elif [[ -f "${target}.cpp" ]]; then
-#   echo "detect cpp lang"
-#   LANG="cpp"
-# elif [[ -f "${target}.py" ]]; then
-#   echo "detect python lang"
-#   LANG="python"
-# else
-#   echo "cannot detect lang. Exit"
-#   exit 0
-# fi
-
 # Compile first, default with DEBUG mode
-if [ "$PROGRAM_LANG" == "cpp" ]; then
-	bash ~/scripts/build.sh "$target" 2
+if [ "$extension" == "cpp" ]; then
+	bash ~/scripts/build.sh "$fullname" 2
 	if [ $? -eq 1 ]; then
 		exit 1
 	fi
 fi
 
-if [ "$PROGRAM_LANG" == "cpp" ]; then
+if [ "$extension" == "cpp" ]; then
 	execute_file="${target}"
-elif [ "$PROGRAM_LANG" == "java" ]; then
+elif [ "$extension" == "java" ]; then
 	execute_file="${target}/${target}"
-elif [ "$PROGRAM_LANG" == "python" ]; then
+elif [ "$extension" == "py" ]; then
 	execute_file="${target}.py"
 fi
 
@@ -64,11 +55,11 @@ if [ $count == 0 ]; then
 fi
 
 execute_solution() {
-	if [ "$PROGRAM_LANG" == "cpp" ]; then
+	if [ "$extension" == "cpp" ]; then
 		timeout 5 ./$execute_file <$input_file >$output_file
-	elif [ "$PROGRAM_LANG" == "java" ]; then
+	elif [ "$extension" == "java" ]; then
 		timeout 5 java -cp $build_dir $execute_file <$input_file >$output_file
-	elif [ "$PROGRAM_LANG" == "python" ]; then
+	elif [ "$extension" == "python" ]; then
 		timeout 5 python3 -W ignore $execute_file <$input_file >$output_file
 	fi
 }

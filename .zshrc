@@ -120,21 +120,12 @@ build() {
 
 gdbrun() {
     filename=$(basename -- "$1")
-    extension="${filename##*.}"
     filename="${filename%.*}"
-    build.sh "$filename" 2 && gdb "$filename"
+    build.sh "$1" 2 && gdb "$filename"
 }
 
 run_opt() {
-    filename=$(basename -- "$1")
-    extension="${filename##*.}"
-    filename="${filename%.*}"
-    if [[ $extension == "cc" ]]; then
-        extension="cpp"
-    elif [[ $extension == "py" ]]; then
-        extension="python"
-    fi
-    /home/huyle/scripts/run_solution.sh $extension $2 $filename
+    /home/huyle/scripts/run_solution.sh $1 $2
 }
 
 run() {
@@ -146,17 +137,7 @@ dbrun() {
 }
 
 runsp() {
-    filename=$(basename -- "$1")
-    extension="${filename##*.}"
-    filename="${filename%.*}"
-    if [[ $extension == "cc" ]]; then
-        extension="cpp"
-    elif [[ $extension == "cpp" ]]; then
-        extension="cpp"
-    elif [[ $extension == "py" ]]; then
-        extension="python"
-    fi
-    /home/huyle/scripts/test_solution.sh $extension $filename
+    /home/huyle/scripts/test_solution.sh $1
 }
 
 # alias dbrun="/home/huyle/scripts/run_solution.sh cpp 2"

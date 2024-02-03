@@ -47,7 +47,7 @@ else
 	echo "[NORMAL MODE]"
 fi
 
-if $FINAL_COMMAND -o $filename $filename.cc; then
+if $FINAL_COMMAND -o "$filename" "$filename"."$extension"; then
 	echo "${green}Compilation Successful $reset"
 else
 	echo "${red}Compilation Failed $reset"
