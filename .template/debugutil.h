@@ -98,5 +98,5 @@ void printerArr(const char* name, T arr[], size_t N) {
 
 }
 
-#define debug(...) std::cerr << "\033[1;31m" << __LINE__ << ": [", __DEBUG_UTIL__::printer(#__VA_ARGS__, __VA_ARGS__);
-#define debugArr(arr, n) std::cerr << "\033[1;31m" << __LINE__ << ": [", __DEBUG_UTIL__::printerArr(#arr, arr, n) << "\033[0m";
+#define debug(...) std::cerr << "\033[1;33m" << __LINE__ << ": [", __DEBUG_UTIL__::printer(#__VA_ARGS__, __VA_ARGS__);
+#define debugArr(arr, n) std::cerr << "\033[1;33m" << __LINE__ << ": [", __DEBUG_UTIL__::printerArr(#arr, arr, n) << "\033[0m";
