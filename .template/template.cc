@@ -1,9 +1,10 @@
 #include <bits/stdc++.h>
 using i64 = long long;
 #ifdef DEBUG
-#include "debug.h"
+#include "debugutil.h"
 #else
 #define debug(...) 666
+#define debugArr(arr, n) 666
 #endif
 
 int32_t main() {
