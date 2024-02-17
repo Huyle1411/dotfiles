@@ -39,9 +39,8 @@ if [ "$extension" = "cpp" ]; then
 
 	echo "${green}Output:${reset}"
 elif [ "$extension" = "python" ]; then
-	echo $target
 	echo "${green}Input:${reset}"
-	python3 -W default ${target}.py >output
+	python3 -W default ${target} >output
 	echo "${green}Output:${reset}"
 else
 	echo "default ....."
