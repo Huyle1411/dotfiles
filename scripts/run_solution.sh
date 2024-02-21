@@ -17,8 +17,6 @@ opt="$2"
 
 if [[ "$extension" == "cc" || "$extension" == "cpp" ]]; then
 	extension="cpp"
-elif [[ $extension == "py" ]]; then
-	extension="python"
 fi
 
 if [ -z "$opt" ]; then
@@ -35,17 +33,30 @@ fi
 
 if [ "$extension" = "cpp" ]; then
 	echo "${green}Input:${reset}"
-	./${filename} >output
-
+	(/usr/bin/time -v ./${filename} >output) &>time_info.txt
 	echo "${green}Output:${reset}"
-elif [ "$extension" = "python" ]; then
+elif [ "$extension" = "py" ]; then
 	echo "${green}Input:${reset}"
-	python3 -W default ${target} >output
+	(/usr/bin/time -v python3 -W default ${target} >output) &>time_info.txt
 	echo "${green}Output:${reset}"
 else
 	echo "default ....."
 	echo $extension
 fi
 
+execute_time=""
+memory=""
+
+extract_time_memory() {
+	execute_time=$(grep -E "User time" time_info.txt)
+	execute_time=$(echo $execute_time | grep -o [0-9]*[.][0-9]*)
+	memory=$(grep -E "Maximum resident set size" time_info.txt)
+	memory=$(echo $memory | grep -o [0-9]*)
+}
+
 cat output
+extract_time_memory
+echo
+echo "Time: ${execute_time}s Mem: ${memory}KB"
 rm output
+rm time_info.txt
