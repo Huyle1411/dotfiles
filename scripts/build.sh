@@ -17,7 +17,7 @@ filename="${filename%.*}"
 
 COMMAND="g++"
 CXX_LANG_OPTION="-std=c++2a"
-CXX_FLAGS="-O0 -Wall -Wextra -Wno-unused-result -Wno-char-subscripts -Wshadow -Wfloat-equal -Wconversion -Wformat-signedness -Wvla -Wduplicated-cond -Wlogical-op -Wredundant-decls "
+CXX_FLAGS="-O0 -Wall -Wextra -Wno-unused-result -Wno-char-subscripts -Wshadow -Wfloat-equal -Wconversion -Wformat-signedness -Wvla -Wduplicated-cond -Wlogical-op -Wredundant-decls -Winvalid-pch"
 DEBUG_CXX_FLAGS="-ggdb3 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=undefined,address,float-divide-by-zero,float-cast-overflow -fno-omit-frame-pointer -fno-optimize-sibling-calls -fstack-protector-all -fno-sanitize-recover=all"
 DEBUG_LOCAL_CXX_FLAGS="-DDEBUG -I/home/huyle/.template/"
 
