@@ -16,8 +16,6 @@ extension="${target##*.}"
 target="${target%.*}"
 if [[ $extension == "cc" || $extension == "cpp" ]]; then
 	extension="cpp"
-elif [[ $extension == "py" ]]; then
-	extension="python"
 fi
 
 # target/ {target.cpp sample.in sample.out}
@@ -56,12 +54,22 @@ fi
 
 execute_solution() {
 	if [ "$extension" == "cpp" ]; then
-		timeout 5 ./$execute_file <$input_file >$output_file
-	elif [ "$extension" == "java" ]; then
-		timeout 5 java -cp $build_dir $execute_file <$input_file >$output_file
-	elif [ "$extension" == "python" ]; then
-		timeout 5 python3 -W ignore $execute_file <$input_file >$output_file
+		(/usr/bin/time -v ./$execute_file <$input_file >$output_file) &>time_info.txt
+	# elif [ "$extension" == "java" ]; then
+	# 	timeout 5 java -cp $build_dir $execute_file <$input_file >$output_file
+	elif [ "$extension" == "py" ]; then
+		(/usr/bin/time -v python3 -W ignore $execute_file <$input_file >$output_file) &>time_info.txt
 	fi
+}
+
+execute_time=""
+memory=""
+
+extract_time_memory() {
+	execute_time=$(grep -E "User time" time_info.txt)
+	execute_time=$(echo $execute_time | grep -o [0-9]*[.][0-9]*)
+	memory=$(grep -E "Maximum resident set size" time_info.txt)
+	memory=$(echo $memory | grep -o [0-9]*)
 }
 
 for input_file in "${target}_"*.in; do
@@ -72,15 +80,16 @@ for input_file in "${target}_"*.in; do
 
 	execute_solution
 	result=$?
+	extract_time_memory
 
-	if [ "$result" -eq "$TIMEOUT_STATUS" ]; then
-		echo "Test case $test_case: ${bold}${orange}Time Limit Exceeded${reset}"
-	elif [ "$result" -eq 0 ]; then
+	# if [ "$result" -eq "$TIMEOUT_STATUS" ]; then
+	# 	echo "Test case $test_case: ${bold}${orange}Time Limit Exceeded${reset}"
+	if [ "$result" -eq 0 ]; then
 		# compare output
 		# if diff -w -B -F --label --side-by-side $expected_file $output_file > dont_show_on_terminal.txt; then
 		diff_output=$(diff -Z -B <(grep -vE '^\s*$' $output_file) <(grep -vE '^\s*$' $expected_file))
 		if [ -n "$diff_output" ]; then
-			echo "Test case $test_case: ${bold}${red}Wrong Answer${reset}"
+			echo "Test case $test_case: ${bold}${red}Wrong Answer${reset} ... ${execute_time}s ${memory}KB"
 			echo "${blue}Input: ${reset}"
 			cat $input_file
 
@@ -93,7 +102,7 @@ for input_file in "${target}_"*.in; do
 			echo "-----------"
 			echo $diff_output
 		else
-			echo "Test case $test_case: ${bold}${green}Accepted${reset}"
+			echo "Test case $test_case: ${bold}${green}Accepted${reset} ... ${execute_time}s ${memory}KB"
 			right_answer=$((right_answer + 1))
 			rm $output_file
 			# colordiff -y -Z -B <(grep -vE '^\s*$' $output_file) <(grep -vE '^\s*$' $expected_file)
@@ -102,6 +111,7 @@ for input_file in "${target}_"*.in; do
 		echo "${red}Error returned: $result${reset}"
 	fi
 	test_case=$((test_case + 1))
+	rm time_info.txt
 done
 
 echo "Testing complete!"
