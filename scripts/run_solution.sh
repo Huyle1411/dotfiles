@@ -12,6 +12,8 @@ target=$1
 filename=$(basename -- "$target")
 extension="${filename##*.}"
 filename="${filename%.*}"
+output_file="output.txt"
+error_file="error.txt"
 
 opt="$2"
 
@@ -31,14 +33,12 @@ if [ "$extension" = "cpp" ]; then
 	fi
 fi
 
+echo "${reset}${green}Input:${reset}"
+
 if [ "$extension" = "cpp" ]; then
-	echo "${green}Input:${reset}"
-	(/usr/bin/time -v ./${filename} >output) &>time_info.txt
-	echo "${green}Output:${reset}"
+	/usr/bin/time -v ./${filename} >$output_file 2>$error_file
 elif [ "$extension" = "py" ]; then
-	echo "${green}Input:${reset}"
-	(/usr/bin/time -v python3 -W default ${target} >output) &>time_info.txt
-	echo "${green}Output:${reset}"
+	/usr/bin/time -v python3 -W default ${target} >$output_file 2>$error_file
 else
 	echo "default ....."
 	echo $extension
@@ -48,15 +48,22 @@ execute_time=""
 memory=""
 
 extract_time_memory() {
-	execute_time=$(grep -E "User time" time_info.txt)
+	execute_time=$(grep -E "User time" $error_file)
 	execute_time=$(echo $execute_time | grep -o [0-9]*[.][0-9]*)
-	memory=$(grep -E "Maximum resident set size" time_info.txt)
+	memory=$(grep -E "Maximum resident set size" $error_file)
 	memory=$(echo $memory | grep -o [0-9]*)
 }
 
-cat output
 extract_time_memory
+# remove output of time -v command
+head -n -23 error.txt >temp.txt && mv temp.txt $error_file
+echo "${reset}${green}Debug:${reset}"
+cat $error_file
+
+echo "${reset}${green}Output:${reset}"
+cat $output_file
+
 echo
 echo "Time: ${execute_time}s Mem: ${memory}KB"
-rm output
-rm time_info.txt
+rm $output_file
+rm $error_file
