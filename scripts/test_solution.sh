@@ -109,7 +109,9 @@ for input_file in "${target}_"*.in; do
 			echo "-----------"
 			echo $diff_output
 		else
-			echo "Test case $test_case: ${bold}${green}Accepted${reset} ... ${execute_time}s ${memory}KB"
+			echo "${reset}${green}Error:${reset}"
+			cat $error_file
+			echo "${reset}Test case $test_case: ${bold}${green}Accepted${reset} ... ${execute_time}s ${memory}KB"
 			right_answer=$((right_answer + 1))
 			# colordiff -y -Z -B <(grep -vE '^\s*$' $output_file) <(grep -vE '^\s*$' $expected_file)
 		fi
@@ -121,5 +123,5 @@ for input_file in "${target}_"*.in; do
 	rm $error_file
 done
 
-echo "Testing complete!"
+echo "${reset}Testing complete!"
 echo "${bold}${green}${right_answer}${reset} test cases passed"
