@@ -86,6 +86,11 @@ for input_file in "${target}_"*.in; do
 	# remove output of time -v command
 	head -n -23 $error_file >temp.txt && mv temp.txt $error_file
 
+	if [ -s $error_file ]; then
+		echo "${reset}${green}Error:${reset}"
+		cat $error_file
+	fi
+
 	# if [ "$result" -eq "$TIMEOUT_STATUS" ]; then
 	# 	echo "Test case $test_case: ${bold}${orange}Time Limit Exceeded${reset}"
 	if [ "$result" -eq 0 ]; then
@@ -97,9 +102,6 @@ for input_file in "${target}_"*.in; do
 			echo "${reset}${green}Input: ${reset}"
 			cat $input_file
 
-			echo "${reset}${green}Error:${reset}"
-			cat $error_file
-
 			echo "${reset}${green}Output: ${reset}"
 			cat $output_file
 
@@ -109,13 +111,13 @@ for input_file in "${target}_"*.in; do
 			echo "-----------"
 			echo $diff_output
 		else
-			echo "${reset}${green}Error:${reset}"
-			cat $error_file
 			echo "${reset}Test case $test_case: ${bold}${green}Accepted${reset} ... ${execute_time}s ${memory}KB"
 			right_answer=$((right_answer + 1))
 			# colordiff -y -Z -B <(grep -vE '^\s*$' $output_file) <(grep -vE '^\s*$' $expected_file)
 		fi
 	else
+		echo "${reset}${green}Input: ${reset}"
+		cat $input_file
 		echo "${red}Error returned: $result${reset}"
 	fi
 	test_case=$((test_case + 1))
