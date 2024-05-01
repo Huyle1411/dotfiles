@@ -8,8 +8,6 @@ orange=$(tput setaf 178)
 bold=$(tput bold)
 reset=$(tput sgr0)
 
-TIMEOUT_STATUS=124
-
 fullname=$1
 target=$(basename -- "$1")
 extension="${target##*.}"
@@ -36,7 +34,7 @@ fi
 if [ "$extension" == "cpp" ]; then
 	execute_file="${target}"
 elif [ "$extension" == "java" ]; then
-	execute_file="${target}/${target}"
+	execute_file="${target}.java"
 elif [ "$extension" == "py" ]; then
 	execute_file="${target}.py"
 fi
@@ -45,7 +43,7 @@ right_answer=0
 test_case=1
 
 # check whether exists sample test cases
-count=$(ls -1 *.in 2>/dev/null | wc -l)
+count=$(ls -1 test/*.in 2>/dev/null | wc -l)
 if [ $count == 0 ]; then
 	echo "${orange}No test cases found!!!${reset}"
 	cd ..
@@ -54,7 +52,7 @@ fi
 
 execute_solution() {
 	if [ "$extension" == "cpp" ]; then
-		/usr/bin/time -v ./$execute_file <$input_file >$output_file 2>$error_file
+		/usr/bin/time -v -f "%E" ./$execute_file <$input_file >$output_file 2>$error_file
 	# elif [ "$extension" == "java" ]; then
 	# 	timeout 5 java -cp $build_dir $execute_file <$input_file >$output_file
 	elif [ "$extension" == "py" ]; then
@@ -72,9 +70,9 @@ extract_time_memory() {
 	memory=$(echo $memory | grep -o [0-9]*)
 }
 
-for input_file in "${target}_"*.in; do
-	filename=$(basename -- "$input_file")
-	filename="${filename%.*}"
+for input_file in "test/sample-*.in"; do
+	# filename=$(basename -- "$input_file")
+	filename="${input_file%.*}"
 	output_file="${filename}.res"
 	expected_file="${filename}.out"
 	error_file="${filename}.err"

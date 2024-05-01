@@ -1,13 +1,16 @@
 return {
-  { "ellisonleao/gruvbox.nvim", priority = 1000 },
+  { "ellisonleao/gruvbox.nvim" },
   { "vim-illuminate", opts = {
     under_cursor = false,
   } },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
+      colorscheme = "noctis_hibernus",
     },
+  },
+  {
+    "talha-akram/noctis.nvim",
   },
   {
     "akinsho/bufferline.nvim",
@@ -124,5 +127,4 @@ return {
       python = { "black" },
     } },
   },
-
 }

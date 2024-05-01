@@ -110,8 +110,7 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-alias h="python3 /home/huyle/scripts/init_solver.py"
-alias dp="python3 /home/huyle/scripts/download_problems.py"
+alias hl="python3 /home/huyle/scripts/programming_tools.py"
 alias nvim="/home/huyle/nvim-linux64/bin/nvim"
 
 build() {
@@ -129,10 +128,6 @@ run_opt() {
 }
 
 run() {
-    run_opt $1 0
-}
-
-dbrun() {
     run_opt $1 2
 }
 
@@ -152,6 +147,7 @@ export PATH=$PATH:~/scripts/
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.config/emacs/bin
 export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$PATH:/usr/local/ssl/bin
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

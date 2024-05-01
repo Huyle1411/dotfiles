@@ -64,6 +64,6 @@ echo "${reset}${green}Output:${reset}"
 cat $output_file
 
 echo
-echo "Time: ${execute_time}s Mem: ${memory}KB"
+echo "Time: ${execute_time}s Memory: ${memory}KB"
 rm $output_file
 rm $error_file
