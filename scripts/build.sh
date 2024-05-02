@@ -11,6 +11,21 @@ if [ -z "$extension" ]; then
 	extension="cc" #default extension
 fi
 filename="${filename%.*}"
+target=$(basename -- "${filename}")
+
+if [ -f "CMakeLists.txt" ]; then
+	echo "Compile with CMakeLists.txt"
+	if [ ! -d "build" ]; then
+		mkdir -p "build" && cd "build" && cmake .. && cd ..
+	fi
+	if cd build && make "$target"; then
+		echo -e "${green}Compilation Successful $reset"
+	else
+		echo -e "${red}Compilation Failed $reset"
+		exit 1
+	fi
+	exit 0
+fi
 
 COMMAND="g++"
 CXX_LANG_OPTION="-std=c++2a"

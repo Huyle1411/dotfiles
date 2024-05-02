@@ -4,15 +4,15 @@
 bold=$(tput bold)
 red="\e[1;31m"
 green="\e[1;32m"
-yellow="\e[1;33m"
+purple="\e[1;35m"
 cyan="\e[1;36m"
 reset="\e[0m"
 
 fullname=$1
 parent_dir="$(dirname "$fullname")"
-target=$(basename -- "$1")
-extension="${target##*.}"
-target="${target%.*}"
+extension="${fullname##*.}"
+target="${fullname%.*}"
+echo "${fullname} ${target}"
 if [[ $extension == "cc" || $extension == "cpp" ]]; then
 	extension="cpp"
 fi
@@ -26,18 +26,19 @@ fi
 
 # Compile first, default with DEBUG mode
 if [ "$extension" == "cpp" ]; then
-	bash ~/scripts/build.sh "$fullname" 2
-	if [ $? -eq 1 ]; then
-		exit 1
+	if [ -f "CMakeLists.txt" ]; then
+		target=$(basename -- "$target")
+		cd build && make "$target" && cd .. || exit 1
+		target="build/${target}"
+	else
+		bash ~/scripts/build.sh "$fullname" 2 || exit 1
 	fi
 fi
 
 if [ "$extension" == "cpp" ]; then
-	execute_file="${parent_dir}/${target}"
-elif [ "$extension" == "java" ]; then
-	execute_file="${parent_dir}/${target}.java"
-elif [ "$extension" == "py" ]; then
-	execute_file="${parent_dir}/${target}.py"
+	execute_file="${target}"
+else
+	execute_file="${fullname}"
 fi
 
 right_answer=0
@@ -47,7 +48,7 @@ test_case=1
 count=$(find "${parent_dir}/test" -maxdepth 1 -name "*.in" -type f 2>/dev/null | wc -l)
 # count=$(ls -1 test/*.in 2>/dev/null | wc -l)
 if [ "$count" == 0 ]; then
-	echo -e "${yellow}No test cases found!!!${reset}"
+	echo -e "${purple}No test cases found!!!${reset}"
 	cd ..
 	exit 0
 fi

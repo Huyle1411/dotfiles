@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-export RED='\033[0;31m'
-export GREEN='\033[0;32m'
+YELLOW="\e[1;33m"
 
-export NC='\033[0m' # No Color
+RESET='\e[0m' # No Color
 TEMPLATE_DIR='/home/huyle/.template'
 SUPPORTED_EXTENSION=(cpp cc py java)
 
@@ -38,29 +37,27 @@ if [ ! -f "${problem_name}/${problem_name}.${extension}" ]; then
 	cp "${TEMPLATE_DIR}/template.${extension}" "${problem_name}/${problem_name}.${extension}"
 fi
 
-# TODO: java need the same class name as file name
 if [ "${extension}" == "java" ]; then
+	# TODO: java need the same class name as file name
 	# sed -i 's/Template/'$PROBLEM_NAME'/' "$filepath/"Template.java
 	echo "need to change class name"
-fi
-
-# unused code, only use if using cmake
-if false; then
-	if [ -f "CMakeLists.txt" ]; then
-		printf "Append to exists CMakeLists.txt\n"
-	else
-		cp "$TEMPLATE_DIR/debug.h" "."
+elif [ "${extension}" == "cpp" ] || [ "${extension}" == "cc" ]; then
+	if [ ! -f "CMakeLists.txt" ]; then
 		cp "$TEMPLATE_DIR/CMakeLists.txt" "."
+	fi
+
+	if [ ! -f "template.${extension}" ]; then
+		cp "$TEMPLATE_DIR/template.${extension}" "."
 	fi
 
 	CMAKE_FILE="CMakeLists".txt
 
-	if grep -q "$PROBLEM_NAME $PROBLEM_NAME.cc" $CMAKE_FILE; then
-		echo "Target already included"
+	if grep -q "add_executable(${problem_name}" $CMAKE_FILE; then
+		echo -e "${YELLOW}Target already included${RESET}"
 	else
 		TARGETCOMMAND="\n"
-		TARGETCOMMAND+="add_executable($PROBLEM_NAME $PROBLEM_NAME.cc)\n"
-		TARGETCOMMAND+="target_precompile_headers($PROBLEM_NAME REUSE_FROM template)"
-		echo -e $TARGETCOMMAND >>$CMAKE_FILE
+		TARGETCOMMAND+="add_executable(${problem_name} ${problem_name}/${problem_name}.${extension})\n"
+		TARGETCOMMAND+="target_precompile_headers(${problem_name} REUSE_FROM template)"
+		echo -e "$TARGETCOMMAND" >>"$CMAKE_FILE"
 	fi
 fi
