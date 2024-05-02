@@ -28,6 +28,11 @@ if [ "$extension" = "cpp" ]; then
 	fi
 fi
 
+if [ -f "CMakeLists.txt" ]; then
+	filename=$(basename -- "$filename")
+	filename="build/${filename}"
+fi
+
 echo -e "${cyan}Input:${reset}"
 
 if [ "$extension" = "cpp" ]; then

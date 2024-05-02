@@ -8,19 +8,19 @@ concept is_iterable = requires(T&& x) {
     end(x);
     size(x);
 } && !std::is_same_v<std::remove_cvref_t<T>, std::string>;
-void print(const char* x) {
+inline void print(const char* x) {
     std::cerr << x;
 }
-void print(char x) {
+inline void print(char x) {
     std::cerr << "\'" << x << "\'";
 }
-void print(bool x) {
+inline void print(bool x) {
     std::cerr << (x ? "T" : "F");
 }
-void print(std::__cxx1998::_Bit_reference x) {
+inline void print(std::__cxx1998::_Bit_reference x) {
     std::cerr << (x ? "T" : "F");
 }
-void print(std::string x) {
+inline void print(std::string x) {
     std::cerr << "\"" << x << "\"";
 }
 
@@ -44,25 +44,25 @@ void print(T&& x) {
             }
         else
             std::cerr << "{}";
-    else if constexpr (requires(T&& x) { x.pop(); }) /* Stacks, Priority Queues, Queues */
+    else if constexpr (requires(T&& xt) { xt.pop(); }) /* Stacks, Priority Queues, Queues */
     {
         T temp = x;
         int f = 0;
         std::cerr << "{";
-        if constexpr (requires(T&& x) { x.top(); })
+        if constexpr (requires(T&& xt) { xt.top(); })
             while (!temp.empty())
                 std::cerr << (f++ ? "," : ""), print(temp.top()), temp.pop();
         else
             while (!temp.empty())
                 std::cerr << (f++ ? "," : ""), print(temp.front()), temp.pop();
         std::cerr << "}";
-    } else if constexpr (requires(T&& x) {
-                             x.first;
-                             x.second;
+    } else if constexpr (requires(T&& xt) {
+                             xt.first;
+                             xt.second;
                          }) /* Pair */
     {
         std::cerr << '(', print(x.first), std::cerr << ',', print(x.second), std::cerr << ')';
-    } else if constexpr (requires(T&& x) { get<0>(x); }) /* Tuple */
+    } else if constexpr (requires(T&& xt) { get<0>(xt); }) /* Tuple */
     {
         int f = 0;
         std::cerr << '(', apply([&f](auto... args) { ((std::cerr << (f++ ? "," : ""), print(args)), ...); }, x);
@@ -98,5 +98,5 @@ void printerArr(const char* name, T arr[], size_t N) {
 
 }
 
-#define debug(...) std::cerr << "\033[1;33m" << __LINE__ << ": [", __DEBUG_UTIL__::printer(#__VA_ARGS__, __VA_ARGS__);
-#define debugArr(arr, n) std::cerr << "\033[1;33m" << __LINE__ << ": [", __DEBUG_UTIL__::printerArr(#arr, arr, n) << "\033[0m";
+#define debug(...) std::cerr << "\033[1;35m" << __LINE__ << ": [", __DEBUG_UTIL__::printer(#__VA_ARGS__, __VA_ARGS__);
+#define debugArr(arr, n) std::cerr << "\033[1;35m" << __LINE__ << ": [", __DEBUG_UTIL__::printerArr(#arr, arr, n) << "\033[0m";
