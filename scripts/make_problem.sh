@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-RED='\033[0;31m'
-GREEN='\033[0;32m'
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
 
-NC='\033[0m' # No Color
+export NC='\033[0m' # No Color
 TEMPLATE_DIR='/home/huyle/.template'
-VALID_EXTENSION=("cpp" "cc" "py" "java")
+SUPPORTED_EXTENSION=(cpp cc py java)
 
 problem_name=$1
 extension=$2
@@ -13,8 +13,15 @@ if [ -z "$extension" ]; then
 	extension="cpp" #default
 fi
 
-if [[ ! " ${VALID_EXTENSION[@]} " =~ " ${extension} " ]]; then
-	echo "Extension is not valid: $extension"
+found_valid_extension=0
+for ext in "${SUPPORTED_EXTENSION[@]}"; do
+	if [ "$extension" = "$ext" ]; then
+		found_valid_extension=1
+	fi
+done
+
+if [ $found_valid_extension -eq 0 ]; then
+	echo "Extension is not supported: ${extension}"
 	exit 1
 fi
 
@@ -40,7 +47,7 @@ fi
 # unused code, only use if using cmake
 if false; then
 	if [ -f "CMakeLists.txt" ]; then
-		printf "Append to exists CMakeLists.txt\n${NC}"
+		printf "Append to exists CMakeLists.txt\n"
 	else
 		cp "$TEMPLATE_DIR/debug.h" "."
 		cp "$TEMPLATE_DIR/CMakeLists.txt" "."

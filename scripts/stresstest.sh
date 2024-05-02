@@ -10,18 +10,18 @@ reset=$(tput sgr0)
 
 # You can chamge the version of C++ or add the compiler flags you wish
 echo "Compiling gen file ..."
-g++ -std=c++17 $1.cc -o generator || {
-	echo ${bold}${orange}Compilation Error in ${reset} $1.cc
+g++ -std=c++17 "$1".cc -o generator || {
+	echo "${bold}${orange}Compilation Error in ${reset} $1.cc"
 	exit 1
 }
 echo "Compiling original solution ..."
-g++ -std=c++17 $2.cc -o original || {
-	echo ${bold}${orange}Compilation Error${reset} in $2.cc
+g++ -std=c++17 "$2".cc -o original || {
+	echo "${bold}${orange}Compilation Error${reset} in $2.cc"
 	exit 1
 }
 echo "Compiling brute force solution ..."
-g++ -std=c++17 $3.cc -o brute || {
-	echo ${bold}${orange}Compilation Error${reset} in $3.cc
+g++ -std=c++17 "$3".cc -o brute || {
+	echo "${bold}${orange}Compilation Error${reset} in $3.cc"
 	exit 1
 }
 
@@ -34,7 +34,7 @@ fi
 diff_found=0
 i=1
 
-while [ $i -le $max_tests ]; do
+while [ $i -le "$max_tests" ]; do
 	# Generate test_case and save it in input1.txt
 	./generator >input1.txt
 

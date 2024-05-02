@@ -124,15 +124,15 @@ gdbrun() {
 }
 
 run_opt() {
-    /home/huyle/scripts/run_solution.sh $1 $2
+    /home/huyle/scripts/run_solution.sh "$1" "$2"
 }
 
 run() {
-    run_opt $1 2
+    run_opt "$1" 2
 }
 
 runsp() {
-    /home/huyle/scripts/test_solution.sh $1
+    /home/huyle/scripts/test_solution.sh "$1"
 }
 
 # alias dbrun="/home/huyle/scripts/run_solution.sh cpp 2"

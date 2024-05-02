@@ -1,14 +1,11 @@
 #!/bin/bash
 
 # color
-green=$(tput setaf 71)
-red=$(tput setaf 1)
-blue=$(tput setaf 32)
-orange=$(tput setaf 178)
-bold=$(tput bold)
-reset=$(tput sgr0)
+red="\e[1;31m"
+green="\e[1;32m"
+reset="\e[0m"
 
-filename=$(basename -- "$1")
+filename="$1"
 extension="${filename##*.}"
 if [ -z "$extension" ]; then
 	extension="cc" #default extension
@@ -48,8 +45,8 @@ else
 fi
 
 if $FINAL_COMMAND -o "$filename" "$filename"."$extension"; then
-	echo "${green}Compilation Successful $reset"
+	echo -e "${green}Compilation Successful $reset"
 else
-	echo "${red}Compilation Failed $reset"
+	echo -e "${red}Compilation Failed $reset"
 	exit 1
 fi
