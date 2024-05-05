@@ -47,6 +47,7 @@ def init_logger(log_file=None):
 def get_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Tool for competitive programming")
 
+    # argument for command line
     parser.add_argument(
         "--version", "-v", action="store_true", help="show tool version number"
     )
@@ -54,7 +55,11 @@ def get_parser() -> argparse.ArgumentParser:
     parser.add_argument("--prepare", "-p", nargs="+", help="create problem folder")
 
     parser.add_argument(
-        "--number", "-n", type=int, help="number of problems to download"
+        "--number", "-nu", type=int, help="download samples of problem by NUMBER"
+    )
+
+    parser.add_argument(
+        "--name", "-na", nargs="+", help="download samples of problem by NAME"
     )
 
     return parser
@@ -128,11 +133,18 @@ def create_problem_folder(json_data=None, problem_name=None) -> bool:
     return True
 
 
-def prepare_problems(names: list[str]) -> bool:
+def prepare_problems(names: list[str], need_to_download=False) -> bool:
     res = True
-    for name in names:
-        if not create_problem_folder(problem_name=name):
-            logger.warning("Cannot create folder %s", name)
+    datas = None
+
+    if need_to_download:
+        datas = listen_from_competitive_companion(len(names))
+
+    for i in range(len(names)):
+        if not create_problem_folder(
+            json_data=(None if datas is None else datas[i]), problem_name=names[i]
+        ):
+            logger.warning("Cannot create folder %s", names[i])
             res = False
 
     return res
@@ -199,17 +211,22 @@ def run(parser: argparse.ArgumentParser) -> int:
 
     if args.version:
         print("programming_tool version", VERSION)
-    elif args.prepare:
+        return 0
+
+    if args.prepare:
         if not prepare_problems(args.prepare):
             return 1
-        run_first_build_cpp()
+    elif args.name:
+        if not prepare_problems(args.name, True):
+            return 1
     elif args.number:
         if not download_by_number(args.number):
             return 1
-        run_first_build_cpp()
     else:
         parser.print_help()
         return 1
+
+    run_first_build_cpp()
 
     return 0
 
