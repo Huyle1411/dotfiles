@@ -144,6 +144,7 @@ bindkey '^ ' autosuggest-accept
 
 ulimit -s unlimited
 export PATH=$PATH:~/scripts/
+export PATH=$PATH:~/rofi-bluetooth/
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.config/emacs/bin
 export PATH=$PATH:$HOME/.cargo/bin
@@ -165,3 +166,6 @@ lg()
     fi
 }
 alias luamake=/home/huyle/lua-language-server/3rd/luamake/luamake
+
+xset r rate 250 30
+

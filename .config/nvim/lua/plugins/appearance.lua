@@ -1,8 +1,9 @@
 return {
   { "ellisonleao/gruvbox.nvim" },
-  { "vim-illuminate", opts = {
-    under_cursor = false,
-  } },
+  -- { "RRethy/vim-illuminate", opts = {
+  --   under_cursor = false,
+  --   delay = 200,
+  -- } },
   {
     "LazyVim/LazyVim",
     opts = {
