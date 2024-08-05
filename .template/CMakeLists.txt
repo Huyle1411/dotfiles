@@ -22,4 +22,4 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include_directories(~/.template/)
 add_executable(template template.cpp)
 target_precompile_headers(template PUBLIC
-                          /usr/include/x86_64-linux-gnu/c++/11/bits/stdc++.h)
+                          /usr/include/x86_64-linux-gnu/c++/13/bits/stdc++.h)

@@ -7,7 +7,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "noctis_hibernus",
+      colorscheme = "noctis_uva",
     },
   },
   {
