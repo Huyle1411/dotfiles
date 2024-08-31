@@ -1,4 +1,130 @@
 {
-  "C_Cpp.clang_format_path": "/usr/bin/clang-format",
-  "editor.formatOnSave": true
+    "workbench.colorTheme": "Noctis Uva",
+    "editor.fontFamily": "Cousine Nerd Font",
+    "editor.fontLigatures": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.cursorBlinking": "solid",
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
+    "selectby.regexes": {
+        "selectFileName": {
+            "backward": "\\s+",
+            "backwardInclude": false,
+            "showSelection": true
+        }
+    },
+    "editor.formatOnSave": true,
+    "vim.easymotion": false,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.highlightedyank.enable": true,
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<leader>",
+                "d"
+            ],
+            "after": [
+                "d",
+                "d"
+            ]
+        },
+        {
+            "before": [
+                "<Enter>"
+            ],
+            "commands": [
+                ":nohl"
+            ]
+        },
+        {
+            "before": [
+                "K"
+            ],
+            "commands": [
+                "lineBreakInsert"
+            ],
+            "silent": true
+        },
+        {
+            "before": [
+                "<leader>",
+                "y"
+            ],
+            "commands": [
+                ":%y+"
+            ]
+        }
+    ],
+    "vim.leader": "<space>",
+    "vim.handleKeys": {
+        "<C-f>": false,
+        "<C-b>": false,
+    },
+    "security.workspace.trust.untrustedFiles": "open",
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "terminal.explorerKind": "external",
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "window.restoreWindows": "none",
+    "workbench.sideBar.location": "right",
+    "editor.fontSize": 14,
+    "terminal.integrated.fontFamily": "Cousine Nerd Font",
+    "terminal.integrated.fontSize": 14,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 0,
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "terminal.integrated.commandsToSkipShell": [
+        "explorer.newFile"
+    ],
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never",
+    "editor.autoIndent": "keep",
+    "editor.minimap.enabled": false,
+    "editor.parameterHints.enabled": false,
+    "editor.quickSuggestions": {
+        "other": false,
+        "comments": false,
+        "strings": false
+    },
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.tabCompletion": "onlySnippets",
+    "editor.tabSize": 2,
+    "explorer.incrementalNaming": "smart",
+    "C_Cpp.default.compilerPath": "g++",
+    "C_Cpp.default.cppStandard": "c++20",
+    "C_Cpp.default.defines": [
+        "LOCAL",
+        "_GLIBCXX_DEBUG"
+    ],
+    "C_Cpp.autoAddFileAssociations": false,
+    "telemetry.telemetryLevel": "off",
+    "workbench.startupEditor": "none",
+    "extensions.ignoreRecommendations": true,
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "bash",
+            "icon": "terminal-bash"
+        },
+        "zsh": {
+            "path": "zsh"
+        },
+        "fish": {
+            "path": "fish"
+        },
+        "tmux": {
+            "path": "tmux",
+            "icon": "terminal-tmux"
+        },
+        "pwsh": {
+            "path": "pwsh",
+            "icon": "terminal-powershell"
+        },
+        "zsh (2)": {
+            "path": "/usr/bin/zsh"
+        }
+    }
 }
