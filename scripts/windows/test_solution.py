@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+import glob
 
 
 def compare_files(file1, file2):
@@ -35,6 +36,11 @@ def print_io_file(input_file, actual_file, expected_file):
     print_file_content(expected_file)
 
 def test_all_files(subfolder, lang, is_debug, file_pattern="sample-{index}"):
+    # Remove all .res files before test
+    res_files = glob.glob(subfolder + "\\test\\" + "*.res")
+    for file in res_files:
+        os.remove(file)
+
     file_name = subfolder + "\\" + subfolder + "."
 
     if lang == "cpp":
@@ -42,8 +48,6 @@ def test_all_files(subfolder, lang, is_debug, file_pattern="sample-{index}"):
             command = f"build.cmd {file_name}{lang}"
             result = subprocess.run(command, shell=True)
             if result.returncode != 0:
-                print(f"Build failed with return code {result.returncode}")
-                print("Error:\n", result.stderr)
                 return
         except subprocess.CalledProcessError as e:
             print(f"Error running: {e}")
@@ -65,6 +69,8 @@ def test_all_files(subfolder, lang, is_debug, file_pattern="sample-{index}"):
         try:
             command = f"{execute_file} < {input_file} > {actual_file}"
             result = subprocess.run(command, shell=True)
+            if result.returncode != 0:
+                return
         except subprocess.CalledProcessError as e:
             print(f"Error running: {e}")
             return
