@@ -1,7 +1,7 @@
+import glob
 import os
 import subprocess
 import sys
-import glob
 
 
 def compare_files(file1, file2):
@@ -41,11 +41,13 @@ def test_all_files(subfolder, lang, is_debug, file_pattern="sample-{index}"):
     for file in res_files:
         os.remove(file)
 
-    file_name = subfolder + "\\" + subfolder + "."
+    file_name = subfolder + "\\" + subfolder
+    execute_file = file_name + "." + lang
 
+    # Compile if needed
     if lang == "cpp":
         try:
-            command = f"build.cmd {file_name}{lang}"
+            command = f"build.cmd {file_name}.cpp"
             result = subprocess.run(command, shell=True)
             if result.returncode != 0:
                 return
@@ -53,11 +55,21 @@ def test_all_files(subfolder, lang, is_debug, file_pattern="sample-{index}"):
             print(f"Error running: {e}")
             return
 
-        # change extension to execute file if build success
-        lang = "exe"
+        execute_file = file_name + ".exe"
+    elif lang == "java":
+        try:
+            command = f"build_java.cmd {file_name}.java"
+            result = subprocess.run(command, shell=True)
+            if result.returncode != 0:
+                return
+        except subprocess.CalledProcessError as e:
+            print(f"Error running: {e}")
+            return
 
-    execute_file = file_name + lang
+        execute_file = "java -cp " + subfolder + " " + subfolder
+
     index = 1
+
     while True:
         input_file = os.path.join(subfolder + "\\test", file_pattern.format(index=index) + ".in")
         expected_file = os.path.join(subfolder + "\\test", file_pattern.format(index=index) + ".out")
@@ -87,7 +99,6 @@ def test_all_files(subfolder, lang, is_debug, file_pattern="sample-{index}"):
         else:
             print(f"Test case {index}:\033[91mWrong Answer\033[0m")
             print_io_file(input_file, actual_file, expected_file)
-            break
 
         index += 1
 

@@ -4,7 +4,6 @@ import logging
 import os
 import re
 import shutil
-import subprocess
 import sys
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
@@ -12,9 +11,9 @@ from pathlib import Path
 VERSION = "2.0"
 logger = logging.getLogger(__name__)
 NAME_PATTERN = re.compile(r"^(?:Problem )?([A-Z][0-9]*)\b")
-SUPPORTED_LANGUAGE_EXTENSION = ["cpp", "py"]
+SUPPORTED_LANGUAGE_EXTENSION = ["cpp", "py", "java"]
 LOG_FORMAT = "%(asctime)s [%(levelname)s] %(funcName)s(): %(lineno)d  %(message)s"
-TEMPLATE_PATH = "D:/Personal/Global_config/"
+TEMPLATE_PATH = "D:/Personal/Global_config/template/"
 
 RED = "\033[0;31m"
 GREEN = "\033[0;32m"
@@ -111,10 +110,10 @@ def create_problem_folder(json_data=None, problem_name=None) -> bool:
     test_cases_path = problem_name + "/test"
 
     for extension in SUPPORTED_LANGUAGE_EXTENSION:
-        problem_file_path = problem_name+"/"+problem_name+"."+extension
+        problem_file_path = problem_name + "/" + problem_name + "." + extension
         if not os.path.isfile(problem_file_path):
             try:
-                shutil.copy(TEMPLATE_PATH+"template."+extension, problem_file_path)
+                shutil.copy(TEMPLATE_PATH + "template." + extension, problem_file_path)
             except FileNotFoundError:
                 logger.error("Template file not found")
         if not os.path.exists(test_cases_path):
